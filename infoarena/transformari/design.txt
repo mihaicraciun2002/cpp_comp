@@ -1,0 +1,22 @@
+Ca sa obtin N, trebuie sa il obtin dintr-o pereche cu suma N
+
+(N - u, u) => (N, u), u < N
+
+d[S][mutare] - costul minim ca sa obtin S dintr-o mutare de tip:
+0, daca il obtin dintr-o transformare de tipul (a, b) => (a, a + b), a < b
+1, (a, b) => (a + b, b), a < b
+
+2 * a + b = S, a < b
+2 * b + a = S, a < b
+
+d[S][0] = 1 + d[T][whatever], T < S, S - T < 2 * T - S, 2 * T > S
+d[S][1] = 1 + d[T][whatever], T < S, S - T > 2 * T - S, 2 * T > S
+
+pot unifica dinamicile, obtin
+dp[S] = min(1 + dp[T]), pentru orice T cu 2 * T > S, T < S
+
+// Retry
+
+dp[t] - sa ajung la o pereche (s, t), s < t
+dp[t] = dp[t - a], 2 * a <= t
+        dp[a], 2 * a >= t

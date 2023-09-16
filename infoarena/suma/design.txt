@@ -1,0 +1,7 @@
+suma de la 1 la n din i * (i - 1)
+
+suma de i^2 - suma de i
+
+n * (n + 1) * (2 * n + 1) / 6
+
+n * (n + 1) / 2

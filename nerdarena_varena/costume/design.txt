@@ -1,0 +1,8 @@
+v1 .. vn
+
+median element for each [1 .. i], i = [1 .. n]
+
+arbint:
+pe sir ordonat, updatez cu 1 daca intalnesc un element nou
+
+dupa ma plimb pe arbore sa vad unde se rupe treaba la mijloc

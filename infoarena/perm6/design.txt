@@ -1,0 +1,9 @@
+d[n][k] - cate permutari cu n elemente au k inversiuni
+
+ma invart in jurul lui n:
+
+n poate sa ia n pozitii intre 1 .. n - 1, determinand exact un nr de inversiuni
+
+care poate fi de la n - 1 la 0
+
+deci d[n][k] = suma cu u de la 0 la min(n - 1, k) din d[n - 1][k - u]

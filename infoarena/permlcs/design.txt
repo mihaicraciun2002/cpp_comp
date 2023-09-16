@@ -1,0 +1,4 @@
+d[i] = 1 default
+d[i] = d[j] + 1, daca poz[j] < poz[i] in toate permutarile
+
+complexitate: O(N * N * M)

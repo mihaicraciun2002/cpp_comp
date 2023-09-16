@@ -1,0 +1,40 @@
+N, K
+trebuie sa aleg t subsecvente cu lungimea totala K, fiecare subsecventa sa contina macar un 0
+si sa aiba suma minima
+
+d[i][tot] - costul minim pentru a avea pana la pozitia i macar cateva subsecvente bune cu lungimea
+totala tot
+
+
+daca v[i] != 0:
+d[i][tot] = MIN DE 
+        d[i - 1][tot - 1] + v[i]
+        d[i - 2][tot - 2] + v[i] + v[i - 1]
+        pana la d[r][tot - (i - r)] + v[i] + .. v[r], cu v[r] = 0
+
+deci d[i][tot] = d[i - r][tot - r] + suma v[r] + .. v[i], v[r] = 0, r < i, r max
+
+
+daca v[i] = 0:
+v[r] = 0, r < i, r maxim
+
+d[i][tot] = MIN DE
+    tot1 < tot, r <= u < i
+    d[u][tot1] + suma de la i - (tot - tot1) + 1 la i de v[i]
+
+d[u][tot1] = d[r][tot1 - (u - r)] + suma v[r]..v[u]
+           = d[r][tot1 + r - u] + suma v[r] .. v[u]
+
+/// Retry
+
+d[i][s] - daca i e 0, costul minim a.i. sa am s zerouri pana la i
+
+d[i][s] = d[previ][t] + Cmin(previ, i, s - t - 1);
+
+s - t - 1 <= i - previ - 1
+
+t >= s - i + previ
+
+Cmin(previ, i, s - t - 1) => costul minim ca sa am s-t-1 zerouri intre previ si i, care sunt ele zerouri
+
+ans va fi min(d[lasti][s] + min(suma de (0, firsti, s1) + suma(lasti, n+1, s2), s1+s2 = k-s))

@@ -1,0 +1,10 @@
+m1 .. mn
+
+mi = (ai * p10) + bi;
+
+mi * i + x = mi+1 * i+1
+
+x = mi+1 * i+1 - mi * i
+
+x < (mi+1 + 1) * i+1 - mi * i + 5
+x > mi+1 * i+1 - (mi + 1) * i + 1

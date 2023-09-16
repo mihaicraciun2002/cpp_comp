@@ -1,0 +1,75 @@
+L-1 cifre in baza B * (B - 1 -> optiuni pt prima cifra)
+
+d[l][p] = cate nr cu l cifre >= 0 am cu cel mai mare sir de 0 de lungime p (l >= p)
+
+blahblahD0..0Dblahblah
+blahblah = are cel mult lungime p sir de 0-uri => d[l1][i1], i1 <= p
+D -> B - 1 optiuni
+
+l - (3 + p)
+
+in total: (B - 1) ^ 2 * suma pt toate l1 si l2 > 0 (l1 + l2 = l - (2 + p)) de
+d[l1][i1] * d[l2][i2], pt orice i1, i2 <= p
+PLUS
+blahblahD0..0
+blahblahD0..0D
+l1 + 1 + p = l => d[l1][i1] * (B - 1)
+l1 + 2 + p = l => d[l1][i1] * (B - 1) * (B - 1)
+
+0..0Dblahblah
+D0..0Dblahblah
+la fel ca precedentul
+
+0..0 (daca l = p) => 1
+D0..0 (daca l = p + 1) => B - 1
+0..0D (daca l = p + 1) => B - 1
+D0..0D (daca l = p + 2) => (B - 1) * (B - 1)
+
+d[L-1][p]
+
+
+/// WRONG
+
+d[l][p] = suma cu j de la 0 la l - p: d[l - p - j][i1] * d[j][i2], i1 <= p, i2 < p
+
+pt P: ans = (B - 1) * (suma de q = 0 => P din d[L - 1][q])
+pt Q: ans = (B - 1) * (suma de q = Q => L - 1 din d[L - 1][q])	
+
+L B P Q
+3 2 1 2
+
+P = 1 => p = 0, p = 1
+d[2][1] = 2 + 2
+Q = 2 => p = 2
+d[2][2]
+
+
+/// END OF WRONG
+
+daca scot p-ul?
+
+d[l] = cate posibilitati pot face ca sa am largest sir <= P
+
+daca l <= p => d[l] = B^l
+
+daca l > p:
+
+buc1 D 0..0 D buc2
+
+buc1_l >= 0
+buc2_l >= 0
+
+/// RETRY
+
+d[l][p] - lungime l, cel mult p zerouri consecutive
+
+d[l][p] = suma de
+x caractere nenule + y caractere nule (y > 0, y <= p) + 1 caracter nenul + restul
+x caractere nenule + y caractere nule
+
+(B - 1) ^ x * (B - 1) * d[l - x - y - 1][p]
+
+PLUS
+(B - 1) ^ l daca totul e nenul
+
+x caractere nenule + y caractere nule

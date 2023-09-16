@@ -1,0 +1,26 @@
+N, K
+
+d[N][K] = min d[M][K - 1] + max(M + 1 .. N), pt orice M < N
+
+d[M][K - 1] + max(M + 1 .. N) < d[P][K - 1] + max(P + 1 .. N)
+
+ce conditie?
+
+Ce e clar: indicele ultim al lui T < S nu va fi mai mare ca al lui S
+
+d[T][K] = d[U][K - 1] + max (U + 1, T)
+
+d[S][K] = d[V][K - 1] + max (V + 1, S)
+
+Ipoteza: V > U
+
+Presupun prin absurd ca V < U
+d[V][K - 1] + max(V + 1, T) > d[U][K - 1] + max(U + 1, T)
+
+max(U + 1, T) < max(V + 1, T)
+
+
+deci stiva sau ceva?
+
+MINI_RETRY:
+vad toate 

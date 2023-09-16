@@ -1,0 +1,19 @@
+N
+
+rezolv recursiv
+
+daca N <= 2 => trivial
+
+normalizez polinomul => polinom monic
+
+ii aflu punctele critice ne-saddle.
+Mai intai ii aflu derivata polinomului curent => rezolv pentru polinomul derivat
+
+Aflu punctele critice
+Aflu derivata de ordin 2, pentru punctele critice cu derivata > 0 sau < 0 strict, alea sunt
+punctele mele critice ne-saddle (maxim sau minim)
+
+deci intre astea maxim/minim, functia este monotona => caut binar valoarea de 0 si alea sunt radacinile
+
+Pentru a fi sigur ca multiplicitatea e OK, aflu polinomul inmultit din radacini
+Impart polinomul initial la polinomul meu si rezolv pentru rezultatul impartirii

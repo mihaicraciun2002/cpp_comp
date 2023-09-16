@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "bitset": "cpp",
+        "coroutine": "cpp",
+        "string_view": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
+    }
+}

@@ -1,0 +1,4 @@
+n -> m
+
+calculez costul sa parcurg un intreg arbore de lungime level
+dupa ma tot mut in arbori din ce in ce mai mici (exemplu bun: 1 -> 12 sau 1 -> 10 sau 1-> 14)

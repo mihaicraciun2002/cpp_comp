@@ -1,0 +1,19 @@
+d[i] - cate sume cu suma S sunt cu indicii <= i
+
+d[i] = d[i - 1] + cnt[S - v[i]], cnt[t] e de cate ori apare t pana la i
+
+// RETRY
+
+dau flip la vector wrt to S:
+
+1 4 8 9 6 1 10 4 12 1
+=>
+9 6 2 1 4 9 0 6 -2 1
+
+4-6 -> 
+
+Algoritmul lui MO:
+
+fiecare bloc de sqrt va tine un vector de frecvente
+
+cand combinam toate, iese ce trebuie?

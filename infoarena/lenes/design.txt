@@ -1,0 +1,13 @@
+iau toate coloanele si vad care e costul minim sa le combin
+
+daca distanta e mai mare ca 2 intre ele, iau minimele pe ambele
+
+daca sunt una langa alta, iau minimele de pe coloanele adiacente
+
+daca sunt la distanta de 1, iau primele minime (k1 + k2), si le intersectez cu
+minimele de pe coloanele adiacente
+
+O(M * M + M * (k1 + k2))
+
+
+Pentru cerinta 1, practic am doar cazul 1

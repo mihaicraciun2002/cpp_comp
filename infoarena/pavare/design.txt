@@ -1,0 +1,24 @@
+d[linie][conf] = nr maxim de blocuri daca completez pana la linia linie si pe linia linie, blocurile apar
+in configuratia conf MAXIM (conf include toate conf' cu un bit de 1 flippat)
+
+conf are bitul col 1 => apare un bloc 2x2 cu coltul stang jos in (linie, col)
+
+d[linie][conf] = MAX(d[linie][conf']), cu conf' fiind fiecare conf cu un bit de 1 negat
+d[linie][conf] = MAX(d[linie][conf], d[linie-1][conf2] + sz(conf)) -> sz(conf) e nr de biti de 1 din conf
+
+
+conf2 si conf nu se suprapun, conf2 maxim (din definitia dinamicii care include toate confurile
+cu un bit 1 negat)
+
+// Rectificare
+
+in loc de d[linie-1][conf2], punem dnegat[linie - 1][conf], care este maximul de pavare daca nu folosesc
+bitii din conf
+dnegat[linie][conf] = d[linie][conf'], cu conf' un conf valid care sa nu se suprapuna cu conf
+
+Daca conf nu e valid, includ toate confurile negate
+
+d[linie][0] = max(d[linie - 1][conf]), pentru toate confurile
+
+! conf trebuie sa fie valid (1-uri la distanta >= 2, 1-urile nu se suprapun cu tile-uri date in
+problema)

@@ -1,0 +1,5 @@
+N
+
+v[1] .. v[N]
+
+sume partiale, principiul cutiei

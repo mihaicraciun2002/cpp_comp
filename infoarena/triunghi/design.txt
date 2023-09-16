@@ -1,0 +1,33 @@
+a+4b+6c+4d+e
+a+3b+3c+d b+3c+3d+e
+a+2b+c b+2c+d c+2d+e
+a+b b+c c+d  d + e
+a    b    c   d   e
+
+total a: 4
+total d: 4
+
+total b: 1+2+3+4+4
+
+total c: 1+2+4+6+6
+
+
+a+5b+10c+10d+5e+f b+5c+10d+10e+5f+g
+
+a+4b+6c+4d+e b+4c+6d+4e+f c+4d+6e+4f+g
+
+a+3b+3c+d b+3c+3d+e c+3d+3e+f d+3e+3f+g
+
+a+2b+c b+2c+d c+2d+e d+2e+f e+2f+g
+
+a+b b+c c+d d+e e+f f+g
+a b c d e f g
+
+a: 1+1+1+1+1+1 = 6
+b: 1+2+3+4+5+6
+c: 1+2+4+7+11+15
+etc
+
+Aflu de cate ori apare fiecare in suma
+
+fac rucsac

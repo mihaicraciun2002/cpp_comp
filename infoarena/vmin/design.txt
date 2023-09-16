@@ -1,0 +1,27 @@
+N functii
+
+Mai intai elimin chestii care au B-uri comune dar A-ul mai mic
+
+sortez f-urile in functie de B, descrescator
+
+Elimin f-urile care fata de precedentul, au B mai mic si A mai mic
+
+Raman cu o serie de f-uri care au B din ce in ce mai mic si A din ce in ce mai mare
+
+determin momentul la care incepe sa fie maxim si cel la care nu mai e maxim pentru fiecare functie
+
+Initial, la T = 0, f1 va fi maxim
+
+Ideal, fiecare f ar avea macar un moment de minimitate
+
+dar nu e asa
+
+Tin minte timpurile la care s-au intersectat doua f-uri consecutive, fiecare f va avea un moment de genul
+Daca f-ul curent are un moment de intersectie mai mic decat f-ul precedent, f-ul precedent trebuie sa
+dispara. Fac asta in continuu pana cand f-ul curent va avea un moment de intersectie mai mare sau egal
+cu f-ul precedent
+
+a > c > e
+b < d < f
+
+stiu ca a * t + b < c * t + d, atunci stiu oare ca si a * t + b < e * t + f ?

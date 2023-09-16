@@ -1,0 +1,11 @@
+N, K
+
+nr % 10000
+
+trebuie sa acopere tot intervalul de lg K
+
+toate sunt divizori ai lui N
+
+t - nr de divizori ai lui N
+
+d[N] = t ^ K - sum (d[div]), pentru toti div | N, div < N

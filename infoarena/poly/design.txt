@@ -1,0 +1,11 @@
+d[i] - lungimea maxima a unui subsir care se termina in i
+
+d[i] = max(d[j] + 1), j < i, gcd(i, j) nu e multiplu de niciun element din multimea {2, 3, 7, 11, 19, 23, 37}
+
+daca v[i] nu se divide cu niciunul din multimea aia => d[i] = max(d[j] + 1), pt orice j < i
+
+daca v[i] se divide cu multimea aia:
+
+d[i] = max(d2[conf]), unde conf neaga divizorii lui v[i]
+
+apoi updatez d2[conf v[i]]

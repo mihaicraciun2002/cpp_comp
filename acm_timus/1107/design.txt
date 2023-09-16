@@ -1,0 +1,22 @@
+N, K, M
+
+N bunuri, K seturi, M clienti
+
+K seturi distribuite la M clienti
+
+Observatie:
+
+Doua seturi A, B sunt A~B daca:
+A + [s] = B
+A = B + [t]
+A + [s] = B + [t] - cazul cand au acelasi nr de bunuri
+
+Conditiile sunt exclusive intre ele!
+
+daca s nu e in B, atunci s = t si A = B, contradictie
+
+Daca tin minte pentru fiecare A, ca A si A + [s], pentru 1 <= s <= N,
+atunci daca atunci cand adaug in vf pe A + [s], il gasesc deja, mai adaug
+1 la contorul lui M 
+Pot codifica un sir prin puteri. Fac pana la a 3-a, poate e suficient?
+Sau trie!
