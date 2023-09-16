@@ -1,5 +1,9 @@
+*
 !**/*.cpp
 !**/*.txt
 !**/*.in
 !**/*.out
 !**/
+!.gitignore
+!README.md
+!LICENSE
