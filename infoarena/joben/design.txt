@@ -1,0 +1,1 @@
+Fac vectori de frecventa care trebuie sa fie identici ca marime si continut (sortat)

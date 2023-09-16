@@ -1,0 +1,6 @@
+d[i][cod] = daca codific cu cod de la i in colo - tin minte nr maxim de conf + cat se extinde
+
+cum calculez cat se extinde?
+
+pornesc de la capat. tin o stiva. Daca gasim un element care era deja in stiva, atunci dau pop
+pana la el si updatez maximul lui cu maximele elementelor de pe stiva
