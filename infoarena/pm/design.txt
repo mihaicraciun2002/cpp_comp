@@ -1,0 +1,3 @@
+d[n][y] - daca pana la n am avut y semne de minus, cu n fiind minus
+
+d[n][y] = d[n - 2][y - 1] + .. + d[1][y - 1]

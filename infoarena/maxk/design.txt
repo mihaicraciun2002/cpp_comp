@@ -1,0 +1,4 @@
+Ma tot deplasez cu un fel de "deque", si fac in asa fel incat
+lIndex sa fie cat mai mare pentru fiecare rIndex. Observatia importanta
+e ca daca rIndex1 < rIndex2, atunci lIndex1 <= lIndex2, deci timpul meu
+e liniar
