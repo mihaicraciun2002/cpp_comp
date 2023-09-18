@@ -1,0 +1,5 @@
+Fac un graf cu nodurile fiind angajati, duc muchie de la a la b daca a il vede pe b ca fiind mai
+smecher (si daca a != b)
+
+d[nod] - cat ne ducem de la nod
+Aflu d[nod] cu dfs

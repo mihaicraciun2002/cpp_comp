@@ -1,0 +1,15 @@
+Vedem cat putem sa ne ducem cu k * m
+
+cu k = 1, pot sa ma duc maxim pana la m
+
+cu k = 2, deja e clar ca trebuie sa ma duc dincolo de m, dar nu am cum sa ma duc mai mult de 2m
+inseamna ca o sa am o statie de pompare, sa zicem de lungime t (vreau sa maximizez t si sa am t + m
+raspunsul)
+Dau refill de 2 ori:
+2 * t + (m - 2 * t) + t + (m - t) = 2 * m (costul ca sa depozitez cat mai mult in statie)
+(m - 2 * t) + (m - t) = m (pentru ca vreau sa am m stocat in statie pentru a continua ca la k = 1)
+t = m / 3
+
+pentru k = 2, acelasi calcul da t = m / 5
+deci distanta maxima pentru k oarecare este m(suma de 1 / (2 * i - 1), cu i de la 1 la k)
+Ce ne mai ramane il facem cu restul

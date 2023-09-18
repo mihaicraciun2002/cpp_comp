@@ -1,4 +1,5 @@
 d[i][cod] = daca codific cu cod de la i in colo - tin minte nr maxim de conf + cat se extinde
+si calculez in fata dinamica pentru d[i + extins][ambele coduri]
 
 cum calculez cat se extinde?
 

@@ -1,0 +1,4 @@
+h=g*t^2/2 => t=sqrt(2*h/g) in seconds => t = 1/60 * sqrt(2*h/g) in minutes
+
+aflu cate rotatii fac cu omega * t si fac ceil. daca e par, cad pe butter, daca e
+impar, cat pe bread

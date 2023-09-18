@@ -1,0 +1,4 @@
+pornesc de la ultimul
+o sa am intervalul [vn-1,vn+1]
+apoi ma duc inspre primul v si dublez nr de intervale:
+pentru [a, b] cu t v-ul curent, o sa adaug [a+t,b+t] si [-b+t,-a+t]
