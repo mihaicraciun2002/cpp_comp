@@ -1,0 +1,16 @@
+In exemplu:
+
+6->(0)->4->(1)->2->(0)->0
+Fiecare suma partiala are o diferenta relativa fata de alta suma partiala
+Cand introduc 6-1, adica s[6] - s[0], vad ca 6 si 0 deja au fost vizitate deci
+v[6] - v[0] trebuie sa fie 0
+dar suma de la 0 la 6 este 0 + 1 + 0 care e 1 deci nu e bine
+fac un aib? si updatez s[r] cu (s[l - 1] + bit) % 2, unde bit e 0 daca e even si 1 daca e odd
+
+Normalizez mai intai valorile
+
+// RETRY union-find
+Doua elemente sunt in aceeasi padure daca le-am adaugat deja in aceeasi padure
+Fac un DSU modificat
+Doar radacinile de la DSU vor avea sons[], sons[0] fiind "reprezentantul" elementelor care
+au aceeasi paritate cu radacina, si invers pentru sons[1]
