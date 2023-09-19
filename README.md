@@ -1,11 +1,11 @@
 # cpp_comp
 Personal cpp projects (comp programming)
 
-infoarena: infoarena.ro/problema/
+infoarena: https://infoarena.ro/problema/
 
-varena/nerdarena: infoarena.ro/problema/
+varena/nerdarena: https://www.nerdarena.ro/problema/
 
-codeforces: codeforces.com/problem/
+codeforces: https://codeforces.com/problemset/problem/
 
 acm.timus.ru: https://acm.timus.ru/problem.aspx?space=1&num=
 

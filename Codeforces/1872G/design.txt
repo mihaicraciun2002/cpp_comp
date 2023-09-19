@@ -1,0 +1,2 @@
+Merita sa adaug un v[i] daca ori nu e 1, sau daca e 1, atunci daca dincolo de 1, mai sunt elemente (1, nu
+e terminal)

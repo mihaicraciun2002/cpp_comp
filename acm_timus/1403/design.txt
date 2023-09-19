@@ -1,0 +1,4 @@
+Vreau sa inserez t-urile cu valoare cat mai mare
+
+ca sa vad daca pot sa il inserez pe t-ul curent, vad daca exista vreun spatiu liber
+cu T-ul mai mic ca t-ul nostru. Daca da, il ocup pe cel cu T-ul cat mai mare, T <= t.
