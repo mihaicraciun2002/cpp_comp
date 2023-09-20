@@ -1,0 +1,6 @@
+d[i][word] - daca pana la i am completat cu word
+d[i][word] = d[i - ln word][word2], cu word2 care sa dea match la ceva ce da match la ultimele
+ln(word2) litere
+
+calculez functia de prefix pentru toate stringurile
+Si apoi fac d[i] - minimul de cuvinte daca sunt pe pozitia i

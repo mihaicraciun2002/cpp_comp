@@ -1,0 +1,44 @@
+Divide in blocks of max(sqrt(n), k)
+When a fill query starts, fill the middle blocks by flipping a bit,
+for the edge blocks do the filling manually
+How to calculate palindromes for k in a block:
+For k=1, k=2, we calculate in O(sz_block)
+For k>=3, suppose k-2 is already calculated.
+Then just eliminate those with k-2 that don't have proper edges (either out of bounds or different)
+For the case where we are in between two blocks B, B+1:
+If both are filled, then it's easy to check
+If one of them is filled, check takes O(K) I think?
+If none or them are fully filled:
+For k=2, check if the middle one is fine
+Keep adding the edges till k = K O(K^2) worst case
+
+Test generator in testgenerator.cpp
+
+To test:
+
+    g++ main.cpp -o main && g++ test.cpp -o test && ./main && ./test && diff test.out aux.out
+
+Runs out of time :(
+
+Attempt #2:
+Segment trees
+
+Very similarly to the inter-block updates from previously, as well as the fill [] thing
+
+
+
+Attempt #3:
+
+Denote d[i] - the number of palindromes that have length at most k and end in i
+If we need to query l, r, first we manually compute the palindromes with indexes
+ending in l .. l + k - 2, then from l + k - 1 to r we just sum d[i]
+If r - l + 1 < k, then we manually compute that interval
+
+If we need to update l, r with a character c:
+From indexes l to l + k - 2, we manually recompute d[i]
+Then from indexes l + k - 1 to r we update the entire range of d[i]'s to (1 + k) * k / 2
+Similarly to the query, if r - l + 1 < k, then we just manually recompute the d[i]'s
+We also have to recompute the next k - 2 dps after r (from r + 1 to r + k - 1)
+
+To keep track of the string, we'll still use a segment tree
+To update the dp, we use a segment tree with lazy update
