@@ -28,7 +28,7 @@ inline long long query(std::string &s, const int &l, const int &r)  {
     return ans;
 }
 
-#define STRING_CHECK 0
+#define STRING_CHECK 1
 
 int main()  {
     freopen("aux.in", "r", stdin);

@@ -19,9 +19,12 @@ inline std::string generateString(int length)  {
     return ans;
 }
 
-const int maxN = 205;
+const int maxN = 1e5;
 const int maxM = maxN;
-const int maxK = 40;
+const int maxK = 50;
+
+#define LARGE_TEST 1
+
 
 int main()  {
     freopen("aux.in", "w", stdout);
@@ -31,6 +34,11 @@ int main()  {
     m = giveNo(1, maxM);
     n = giveNo(1, maxN);
     k = giveNo(1, std::min(maxK, n));
+    if(LARGE_TEST)  {
+        n = maxN;
+        m = maxM;
+        k = maxK;
+    }
     std::cout << generateString(n) << " " << k << "\n" << m << "\n";
     for(int i = 1;i <= m;i++)  {
         int type, l, r;

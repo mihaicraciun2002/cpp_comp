@@ -36,9 +36,11 @@ If r - l + 1 < k, then we manually compute that interval
 
 If we need to update l, r with a character c:
 From indexes l to l + k - 2, we manually recompute d[i]
-Then from indexes l + k - 1 to r we update the entire range of d[i]'s to (1 + k) * k / 2
+Then from indexes l + k - 1 to r we update the entire range of d[i]'s to (1 + k) * k / 2 -- Pardon, k
 Similarly to the query, if r - l + 1 < k, then we just manually recompute the d[i]'s
 We also have to recompute the next k - 2 dps after r (from r + 1 to r + k - 1)
 
 To keep track of the string, we'll still use a segment tree
 To update the dp, we use a segment tree with lazy update
+
+The manual recomputation is done with Manacher's algorithm (tried a O(k ^ 2) approach and it's too slow)

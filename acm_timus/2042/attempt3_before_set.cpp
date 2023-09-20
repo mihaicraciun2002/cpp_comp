@@ -6,11 +6,7 @@
 #include <cassert>
 #include <utility>
 #include <algorithm>
-#include <unordered_map>
 #include <set>
-#include <cstring>
-#include <cstdlib>
-#include <cmath>
 #if CHRONO_IN
 #include <chrono>
 #endif
@@ -102,9 +98,8 @@ class SegmentTree  {
 SegmentTree string;
 SegmentTree dp;
 
-inline void initialUpdate(const int& l, const int& r)  {
-    std::unordered_map <int, std::pair <int, int>> comp;
-    int compSize = 0;
+inline void manualUpdate(const int& l, const int& r)  {
+    std::set < std::pair <int, int> > comp;
     int currentAnswer = 0;
     long long lDp = 0;
 
@@ -152,125 +147,40 @@ inline void initialUpdate(const int& l, const int& r)  {
     }
 }
 
-
-
-inline char getChManual(const int&r, const int& dpSize, const int& pos)  {
-    return (char)string.get(r - dpSize + pos);
-}
-
-bool isPalindrome[151][151];
-char quickS[151];
-// Manually recalculates dp[i] from l to r
-inline void manualUpdate(const int& l, const int& r)  {
-    const int startDP = std::max(1, l - k + 1);
-    const int maxDPSize = r - std::max(1, l - k + 1) + 1;
-    // Maps the interval l - k + 1 => r to 1 => maxDPSize
-    const int lCoord = l - startDP + 1;
-    const int rCoord = r - startDP + 1;
-    std::vector <long long> dpTmp(r - l + 1, 0);
-    memset(isPalindrome, 0, sizeof(isPalindrome));
-    for(int i = 1;i <= maxDPSize;i++)  {
-        quickS[i] = getChManual(r, maxDPSize, i);
-    }
-
-    for(int i = 1;i <= maxDPSize;i++)  {
-        isPalindrome[i][i] = true;
-        if(i >= lCoord)  {
-            dpTmp[i - lCoord]++;
-        }
-    }
-    int end;
-    bool accept = false;
-    for(int distance = 2;distance <= std::min(maxDPSize, k);distance++)  {
-        for(int start = 1;start <= maxDPSize - distance + 1;start++)  {
-            end = start + distance - 1;
-            accept = (quickS[start] == quickS[end]);
-            // accept = (getChManual(r, maxDPSize, start) == getChManual(r, maxDPSize, end));
-            if(start + 1 == end)  {
-                isPalindrome[start][end] = accept;
-            }else{
-                isPalindrome[start][end] = isPalindrome[start + 1][end - 1] & accept;
-            }
-            if(end >= lCoord)
-                dpTmp[end - lCoord] += isPalindrome[start][end];
-        }
-    }
-/*     std::cerr << sqrt(opCount) << "\n";
- */    for(int i = 0;i < r - l + 1;i++)  {
-        dp.update(i + l, i + l, dpTmp[i]);
-    }
-}
-
 // We have to manually update l -> l + k - 2, r + 1 -> r + k - 1
 
 inline void updateDp(const int& l, const int& r)  {
     if(size(l, r) < k)  {
-/*         manualUpdate(l, std::min(n, r + k - 1));
- */        return;
+        manualUpdate(l, std::min(n, r + k - 1));
+        return;
     }
-/*     manualUpdate(l, l + k - 2);
-    manualUpdate(r + 1, std::min(r + k - 1, n));
- */    dp.update(l + k - 1, r, k);
-}
-
-const int MaxN = 1e5 + 1;
-char queryS[MaxN];
-
-long long manacher_odd(std::string& s) {
-    int n = s.size();
-    long long ans = 0;
-    s = "$" + s + "^";
-    std::vector<int> p(n + 2);
-    int l = 1, r = 1;
-    for(int i = 1; i <= n; i++) {
-        p[i] = std::max(0, std::min(r - i, p[l + (r - i)]));
-        while(s[i - p[i]] == s[i + p[i]]) {
-            p[i]++;
-        }
-        if(i + p[i] > r) {
-            l = i - p[i], r = i + p[i];
-        }
-        ans += p[i] / 2;
-    }
-    return ans;
+    manualUpdate(l, l + k - 2);
+    manualUpdate(r + 1, r + k - 1);
+    dp.update(l + k - 1, r, k);
 }
 
 inline long long manualQuery(const int& l, const int& r)  {
     long long ans = 0;
-    std::set <std::pair <int, int>> comp;
+    std::unordered_map <int, std::pair <int, int>> comp;
     int compSize = 0;
-    for(int i = l;i <= r;i++)
-        queryS[i] = string.get(i);
-    std::string auxS;
     for(int i = l;i <= r;i++)  {
-        auxS.push_back('#');
-        auxS.push_back(queryS[i]);
-    }
-    auxS.push_back('#');
-    long long manacherAns = manacher_odd(auxS);
-    return manacherAns;
-    for(int i = l;i <= r;i++)  {
-        std::vector <std::pair <int, int> > toErase, toReplace;
+        std::vector <int> toErase;
         for(auto& candidateMap: comp)  {
-            std::pair <int, int> candidate = candidateMap;
+            std::pair <int, int> candidate = candidateMap.second;
             if(candidate.first - 1 < l || candidate.second + 1 > r || size(candidate.first - 1, candidate.second + 1) > k ||
-                queryS[candidate.first - 1] != queryS[candidate.second + 1])  {
-                    toErase.push_back(candidateMap);
+                string.get(candidate.first - 1) != string.get(candidate.second + 1))  {
+                    toErase.push_back(candidateMap.first);
                 }else{
-                    toReplace.push_back(candidateMap);
+                    candidateMap.second = std::make_pair(candidate.first - 1, candidate.second + 1);
                     ans++;
                 }
         }
         for(const auto& x : toErase)
             comp.erase(x);
-        for(const auto&x : toReplace)  {
-            comp.erase(x);
-            comp.insert(std::make_pair(x.first - 1, x.second + 1));
-        }
-        comp.insert(std::make_pair(i, i));
+        comp[compSize++] = std::make_pair(i, i);
         ans++;
-        if(i > l && k >= 2 && queryS[i - 1] == queryS[i])  {
-            comp.insert(std::make_pair(i - 1, i));
+        if(i > l && k >= 2 && string.get(i - 1) == string.get(i))  {
+            comp[compSize++] = std::make_pair(i - 1, i);
             ans++;
         }
     }
@@ -336,8 +246,8 @@ int main()  {
     }
 
     // Dp initialization
-    initialUpdate(1, n);
-
+    manualUpdate(1, n);
+    std::cerr << n << "\n";
     while(queryNo--)  {
         #if EASY_IO && STRING_CHECK
         printString(stringCheck);
@@ -357,7 +267,7 @@ int main()  {
             updateDp(l, r);
         }else{
             queryCounter++;
-            std::cout << queryDp(l, r) << '\n';
+            // std::cout << queryDp(l, r) << '\n';
         }
     }
     #if CHRONO_IN
