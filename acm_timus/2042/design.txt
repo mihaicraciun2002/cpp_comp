@@ -44,3 +44,7 @@ To keep track of the string, we'll still use a segment tree
 To update the dp, we use a segment tree with lazy update
 
 The manual recomputation is done with Manacher's algorithm (tried a O(k ^ 2) approach and it's too slow)
+
+#Sub retry 3.1
+dOdd[i] - number of palindromes that have length at most k and have i as middle
+dEven[i] - number of palindromes that have length at most k and have i as the guy to the right of the middle ((i - 1, i) for example)
