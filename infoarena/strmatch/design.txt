@@ -1,0 +1,30 @@
+kmp
+
+pentru sirul mic N, pi[i] = lungimea celui mai lung prefix care este si sufix al lui N[1..i]
+
+pi[i] <= pi[i - 1] + 1 pentru ca altfel as putea largi pi[i - 1]
+
+1..pi[i-1]x .. 1..pi[i-1] N[i]
+
+daca x = N[i], atunci pi[i] = pi[i - 1] + 1
+daca nu, atunci trebuie sa gasesc un sufix al lui 1..pi[i-1] din dreapta a.i. t..pi[i-1]N[i] = 1..sN[i]
+Adica trebuie sa gasesc cel mai lung prefix al lui 1..pi[i-1] care sa fie si sufix al lui, si sa avem
+caracterul de dupa egal cu N[i]
+
+Apoi, pentru a gasi aparitiile lui N in M, caut cel mai lung prefix al lui N care este sufix al lui M[1..i]
+
+sa zicem ca am gasit d[i - 1], vreau sa gasesc d[i]
+
+1..d[i-1] in N este M[t]..M[i-1]
+
+daca d[i] > d[i-1]+1,
+1..d[i-1]..d[i] este M[u] .. M[i-1] M[i]
+deci 1..d[i-1]..)d[i] este M[u]..M[i-1] deci d[i-1] nu este optim, contradictie
+
+deci d[i] <= d[i-1] + 1
+daca pozitia dupa d[i-1] in N este M[i], d[i] = d[i-1] + 1
+daca nu, atunci trebuie sa gasesc cel mai lung prefix al lui 1..d[i-1] care este si sufix al lui M[1..i]
+
+deci trec in pi[d[i-1]] samd, ca in generarea prefixului initial
+trec in pi[d[i-1]] pentru ca eu stiu deja ca 1..d[i-1] este prefix al lui N si deci trebuie sa gasesc
+un subprefix care sa fie si subsufix in sufixul lui M[t..i-1].
