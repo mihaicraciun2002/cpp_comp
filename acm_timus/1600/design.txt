@@ -1,0 +1,4 @@
+For two airplanes, their distance function will be
+sqrt(sum over coordinates (xi - xj + vix * t - vjx * t)^2)
+the derivative of the square of the distance will result in a global minimum of
+-sum(xi-xj)*(vix-vjx)/sum((vix-vjx)^2)
