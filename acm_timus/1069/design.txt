@@ -1,0 +1,2 @@
+lastseen[i] - last position that a vertex has been seen
+if We're past lastseen[i], then i now becomes a leaf
