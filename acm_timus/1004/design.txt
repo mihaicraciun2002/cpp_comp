@@ -1,0 +1,12 @@
+d[i][j] = shortest path from i to j, j >= i, taking into account only vertices from {i..N}
+
+For every i from N to 1, consider i the start of the cycle. To find a cycle, take any two vertices
+adjacent to i, with i < a < b, and the cycle will be constituted from the edge (i,a), d[a][b], and (i,b).
+
+Now when we pass to i - 1, we'll have to update O(N * N) dps. We first run a Djikstra/Bellman-ford
+from i, and then update d[a][b] to min(d[a][b], d[i][a] + d[i][b])
+Or just update d[a][b], with a > i, to min(d[a][b], d[i][a] + d[i][b])
+To reconstruct the solution, keep prev[a][b] - the previous node before b if a is considered root
+If we updated d[a][b], then also keep a bestMiddleMan[a][b] which would be i if we've just gone to i - 1
+And we're going to have two pieces to glue together (a -> bestMiddleMan[a][b] and bestMiddleMan[a][b] -> b)
+Otherwise, bestMiddleMan[a][b] = a and we just have a -> b.
