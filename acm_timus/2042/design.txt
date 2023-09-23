@@ -48,3 +48,7 @@ The manual recomputation is done with Manacher's algorithm (tried a O(k ^ 2) app
 #Sub retry 3.1
 dOdd[i] - number of palindromes that have length at most k and have i as middle
 dEven[i] - number of palindromes that have length at most k and have i as the guy to the right of the middle ((i - 1, i) for example)
+Yet another rectification: string updates have to be done with the O(sqrtN) method because retrievals will take too much time (O(logN)
+instead of O(1)), which was the biggest slowdown with only segment trees
+
+AC source: attempt3_1.cpp

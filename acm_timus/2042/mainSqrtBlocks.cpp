@@ -454,6 +454,22 @@ inline void printString()  {
     return;
 }
 
+inline void printString(FILE *out)  {
+    for(const auto&block : blocks)  {
+        if(block.filled)  {
+            for(int i = block.l;i <= block.r;i++)  {
+                fprintf(out, "%c", block.fillCh);
+            }
+        }else{
+            for(int i = block.l;i <= block.r;i++)  {
+                fprintf(out, "%c", s[i]);
+            }
+        }
+    }
+    fprintf(out, "\n");
+    return;
+}
+
 inline void printString(const int& l, const int& r)  {
     int indexLeft = getBlock(l), indexRight = getBlock(r);
     for(int blockIndex = indexLeft;blockIndex <= indexRight;blockIndex++)  {
@@ -479,12 +495,16 @@ inline void printStringBlocks(const int&l, const int& r)  {
     std::cerr << "\n";
 }
 
-#define EASY_IO 0
+#define EASY_IO 1
+#define STRING_CHECK 1
 
 int main()  {
     #if EASY_IO
     freopen("aux.in", "r", stdin);
     freopen("aux.out", "w", stdout);
+    #if STRING_CHECK
+    FILE *stringCheck = fopen("strmain.out", "w");
+    #endif
     #endif
     std::cin >> s >> k >> queryNo;
     s.insert(0, 1, 0);
@@ -498,6 +518,9 @@ int main()  {
         blockIndex++;
     }
     while(queryNo--)  {
+        #if EASY_IO && STRING_CHECK
+        printString(stringCheck);
+        #endif
         int type, l, r;
         char fillCh;
         std::cin >> type >> l >> r;
@@ -505,7 +528,7 @@ int main()  {
             std::cin >> fillCh;
             fillBlocks(l, r, fillCh);
         }else{
-            std::cout << solve(l, r) << "\n";
+            // std::cout << solve(l, r) << "\n";
         }
     }
     return 0;

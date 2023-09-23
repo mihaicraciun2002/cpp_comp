@@ -22,6 +22,7 @@ inline long long query(std::string &s, const int &l, const int &r)  {
             while(toAdd && copyi < copyj)
                 toAdd = (s[copyi] == s[copyj]),
                 copyi++, copyj--;
+
             ans += toAdd;
         }
     }
