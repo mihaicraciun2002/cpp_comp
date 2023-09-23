@@ -1,0 +1,8 @@
+Denote bi = ai - ai-1
+
+So bi+1 = bi + ci
+
+b1+..bn+1 = an+1 - a0
+
+So (n+1)b1 + sum from i=1 to n of (ci*(n+1-i))=an+1 - a0
+We find b1 from this, then a1 = b1 + a0
