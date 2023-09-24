@@ -1,0 +1,2 @@
+d[i][j][h] - maximum subrectangle with bottom right corner in i,j and height h
+done with the classical maximum subsequence technique
