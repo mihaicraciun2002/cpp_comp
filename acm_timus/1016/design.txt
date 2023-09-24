@@ -1,0 +1,29 @@
+Attempt #1:
+Bellman Ford
+d[position][config]
+config - the current permutation for the cube
+4 * 6 = 24 possible configs (6 possible bottoms with 4 possible rotations)
+position - 64 possible configs
+
+near far top right bottom left
+1    2   3   4     5      6
+
+If we move to the left:
+New:
+near far top right bottom left
+1    2   4   5     6      3
+
+If we move to the right:
+New:
+near far top right bottom left
+1    2   6   3     4      5
+
+If we move down:
+New:
+near far top right bottom left
+3    5   2   4     1      6
+
+If we move up:
+New:
+near far top right bottom left
+5    3   1   4     2      6
