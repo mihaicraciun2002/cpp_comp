@@ -1,0 +1,8 @@
+d[n][2] - number of k-based numbers with n digits that end in either 0 or non-0
+d[1][0] = 0
+d[1][1] = K - 1
+
+d[n][0] = d[n - 1][1]
+d[n][1] = (K - 1) * (d[n - 1][0] + d[n - 1][1])
+
+need bigints too
