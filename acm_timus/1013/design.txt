@@ -1,0 +1,28 @@
+d[n][2] - number of k-based numbers with n digits that end in either 0 or non-0
+d[1][0] = 0
+d[1][1] = K - 1
+
+d[n][0] = d[n - 1][1]
+d[n][1] = (K - 1) * (d[n - 1][0] + d[n - 1][1])
+
+Everything is modulo M
+(dprev0 dprev1) *
+a  b
+c  d
+
+=
+(dcurr0 dcurr1)
+
+dprev0 * a + dprev1 * c = dcurr0 => a = 0, c = 1
+dprev0 * b + dprev1 * d = dcurr1 => b = k - 1, d = k - 1
+
+So we need to multiply the matrix
+ 0 k-1
+ 1 k-1
+
+N - 1 times and multiply with the initial (0 K - 1) vector to get the solution for N
+
+Note: since M can be quite large even for long long, we use a special multiplication.
+To multiply A and B, we decompose B into its basis 2 powers, then incrementally check
+all of its bits and add A * 2^i if i is a bit of B. We do this since we can modulo
+(A * 2^i)%M incrementally.
