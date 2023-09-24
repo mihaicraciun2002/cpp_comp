@@ -1,0 +1,17 @@
+We keep extracting full squares
+We replace these full squares with a dud character that can be molded in any other character
+For every dud character we now have, we first place a upper left corner, then search for
+a dud character on the same line to the left to put a upper right corner, then a dud character on
+the same column to the bottom to put a lower right corner, and then finally a lower left corner.
+Of course, we can use a proper character if we find one instead of a dud one. If we can form
+a full square, then continue.
+We stop when we run out of original characters. Also we try to maximize the size of the square so
+that we fit into N squares, by starting from the farthest "good" character
+
+Precompute all possible squares and always fill the one with the most unused characters,
+and in case of equality fill the largest one, sort by how complete the blocks are and
+erase the one that is the most complete
+Also, before extracting one more square, make sure that we're not extracting a square that cannot be
+extracted at this moment. How do we check this? Well, if one of its elements is a star, then its fine.
+But if one of its elements is a real character, and it's not in concordance with the square (for example,
+we're on the top bar, and the character is | instead of _ or *), then we won't take it into account.
