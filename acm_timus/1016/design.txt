@@ -27,3 +27,6 @@ If we move up:
 New:
 near far top right bottom left
 5    3   1   4     2      6
+
+Note: since we're applying rotations without changing the system of reference (we don't change what
+1, 2, 3, 4, 5, 6 mean), we need to apply the rotation first, and then the previous rotation.
