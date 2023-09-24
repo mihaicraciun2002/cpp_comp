@@ -1,0 +1,9 @@
+The unicity of a cube is determined by the pairs of opposing sides, as well as the order of the pairs.
+We try to bring 1 and its opposite correspondent to the first two positions.
+If they're already there, its fine.
+There are two cases (1 is on (top bottom) or (forward backward)), quite straight forward to deduce from the sample on
+what equivalent cube would have 1 on one of the first two positions.
+Then we write the permutation made from positions 3,4,5,6(since they're in a sequence on a cube), starting from the
+smallest number in the permutation, and accounting for the parity of positions 1,2 (if 1 is on the first position,
+then the order is ascending, if 1 is on the 2nd position, order is decreasing). This will uniquely determine
+a cube.
