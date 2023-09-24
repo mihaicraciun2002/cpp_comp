@@ -1,0 +1,17 @@
+First, since both percentages are specified to be up to 2 decimal points,
+we can write them as:
+a/10000 and b/10000, with a, b integers
+
+We now need to find the smallest y, s.t. there is a x
+with
+a/10000 <= x/y <= b/10000
+so
+
+a <= x*10000/y <= b, a,b in N and smaller than 10000
+
+For y = 10000, we just take x in between a and b
+
+so y <= 10000
+
+For each y between 1 and 10000, we see if there is a multiple of 10000
+between a * y and b * y
