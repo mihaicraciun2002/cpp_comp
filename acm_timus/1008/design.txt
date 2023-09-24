@@ -1,0 +1,5 @@
+If we receive the already computed array
+We take the first element, and we just traverse the array, making sure
+not to add duplicates, using a queue
+
+Similarly we do the reverse
