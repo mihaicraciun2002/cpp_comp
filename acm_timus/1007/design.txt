@@ -1,0 +1,11 @@
+If the size of the string is N + 1, then we know a symbol has been inserted.
+We iterate through the string, and simulate removing an element (O(1) with partial sums)
+and check if the condition is satisfied
+
+If the size of the string is N:
+If the condition is already satisfied, then its fine
+Otherwise, sum up the position of 1s and take the remainder of the division to N + 1, that
+will be the position of the bad 1.
+
+If the size of the string is N - 1:
+At each position, see if inserting a 0 or 1 would satisfy the condition in the problem
