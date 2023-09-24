@@ -1,0 +1,4 @@
+The gradient always has to strictly increase, otherwise we'll have points over or on the gradient line
+Also, if the gradient is currently positive, then it's always optimal to connect with the guy right before.
+If the gradient is on a negative trend, then its optimal to connect to the furthest guy to the left (the one
+that saw the first negative gradient)
