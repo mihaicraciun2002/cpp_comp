@@ -1,0 +1,22 @@
+What the task says:
+We need to pick a few subtrees with K (K = N - 1 - Q) edges to cut off, with minimal cost
+Aka, pick a few nodes (that aren't related on a straight lineage) with K edges of min cost
+So it would be ideal to check the costs for each node's kids, since they aren't related
+on a straight path (they're siblings)
+D[node][k] - minimal cost to cut off k branches in node's subtree.
+Unideal since D[node][k] can't be directly deduced from just D[node][k - 1]. Example:
+k = 2, node = 1,
+1
+|100   \1
+2       3
+|4      |5
+4       5
+
+As we can see, D[1][1] is 4, but D[1][2] completely shifts over to 1 + 5 = 6
+So add one more dimension, inspired from this example:
+d[node][k][i] - minimal cost to cut k branches in node's subtree if we only consider its
+first i kids
+d[node][k][i] = min of d[node][k - t][i - 1] + D[kid_i][t], for t>= 0, t <= nr of edges in the kids
+subtree, and of course we can take t = no of edges in its subtree + 1 and completely cut the kid
+off
+then D[node][k] = d[node][k][no_of_kids_of_node]
