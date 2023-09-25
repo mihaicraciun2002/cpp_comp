@@ -1,0 +1,8 @@
+First idea:
+O(sqrt(N)) blocks
+
+Second idea:
+We only have 2*2*N + 2 (at most) edges (we insert l, r - 1, r, l - 1 as points)
+So we could just use a segment tree with lazy updates
+
+Then we just query for l, r - 1 and use a simple maximum sum subsequence interval algorithm
