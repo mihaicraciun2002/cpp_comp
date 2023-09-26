@@ -1,0 +1,104 @@
+Suppose x1 is the initial amount of fish and n is the amount of fishermen
+After first fisherguy:
+x2 = (x1 - a1) * (n - 1) / n
+After 2nd guy:
+x3 = (x2 - a2) * (n - 1) / n
+..
+..
+After nth guy:
+xn+1 = (xn - an) * (n - 1) / n
+x1 min? s.t. xn+1 is natural and xn+1 >=n-1.
+
+Observation: x2..xn+1 are all divisible with n - 1, and of course xi-ai is divisible with n, for all i less than n.
+
+xn+1 = (n - 1) * yn+1
+So yn+1 * n = xn - an
+xn = yn+1 * n + an
+
+yn+1 * n + an = (xn-1 - an-1) * (n - 1) / n
+If an is n - 1, then yn+1 needs to be divisible with n - 1
+
+
+
+a1, a2
+
+x2 = (x1 - a1) * (n - 1) / n
+x3 = (x2 - a2) * (n - 1) / n
+
+// Actual progress from here
+
+x1 min?
+
+(n - 1) * (x1 - a1) = n * x2
+n * x3 = (x2 - a2) * (n - 1)  / * n
+n^2 * x3 = (x2 * n - a2 * n) * (n - 1)
+n^2 * x3 = ((n - 1) * (x1 - a1) - a2 * n) * (n - 1)
+n^2 * x3 = x1 * (n-1)^2 - a1 * (n-1)^2 - a2*(n-1)*n
+
+x4 = (x3 - a3) * (n - 1) / n
+n * x4 = (x3 - a3) * (n - 1)  / * n^2
+
+n^3 * x4 = x1 * (n-1)^3 - a1 * (n-1)^3 - a2 * n^1 * (n-1)^2 - a3 * n^2 * (n-1)
+
+
+n^3*x4 + a1*(n-1)^3 + a2 * n * (n-1)^2 + a3 * n^2 * (n-1) = x1 * (n-1)^3
+
+S = sum from i = 1 to n of ai * n^(i-1) * (n-1)^(n+1-i)
+x4 min s.t.
+
+x4*n^(n) + S = x1 * (n-1)^(n)
+modulo (n-1)^(n):
+
+x4*n^(n) + S = 0 (mod (n-1)^(n))
+
+Notation: A = (n-1)^(n), B = n^(n)
+
+so we need the smallest x4 s.t. x4*B + S = 0 (mod A)
+x4 * B = -S (mod A)
+Since A, B are coprime, B has an inverse mod A, let it be called B'
+x4 = -S*B'(mod A)
+so that is our x4
+
+
+3
+1 0 2
+
+S = 1 * 2^3 + 0 * 2^2 * 3 + 2 * 2 * 3^2
+S = 8 + 36 = 44
+A=8, B=27
+x4 * 27 + 44 = 0 (mod 8)
+x4 * 27 = 4 (mod 8)
+
+x4 min is 4, which was the good answer
+
+Test;
+4
+0 1 2 0
+x5 = 63 (correct answer)
+
+S = 0 * 3^4 + 1 * 3^3 * 4 + 2 * 3^2 * 4^2 + 0
+S = 108 + 288 = 396
+A=81
+B=256
+B'=25
+x5=63
+
+Things needed to implement this:
+A large number class with addition, multiplication, division (remainder and quotient both needed)
+Euclid's algorithm for the inverse of B
+Comparison too
+Maximum amount of digits: more than a million, have to be conservative with memory
+
+Euclid:
+a*x+b*y=1 (applied for a=B, b=A)
+x=?
+a=b*c+r
+b*(c*x+y)+r*x=1
+y=first-(c*second)
+x=y1
+
+Implementation:
+C++ - attempted to implement a big numbers class but was too ineficient
+Java - used the big num class, but the solution was too slow
+Python - should've worked, but for some reason got a runtime error
+Haskell - the one that actually works (and was the most fun too)

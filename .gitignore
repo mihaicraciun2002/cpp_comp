@@ -3,6 +3,10 @@
 !**/*.txt
 !**/*.in
 !**/*.out
+!**/*.hs
+!**/*.lhs
+!**/*.java
+!**/*.py
 !**/
 !.gitignore
 !README.md
