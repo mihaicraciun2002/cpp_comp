@@ -1,0 +1,3 @@
+/home/mihai/git/cpp_comp/implementations/bigInt/build/CMakeFiles/bigInt.dir
+/home/mihai/git/cpp_comp/implementations/bigInt/build/CMakeFiles/edit_cache.dir
+/home/mihai/git/cpp_comp/implementations/bigInt/build/CMakeFiles/rebuild_cache.dir

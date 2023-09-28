@@ -435,6 +435,14 @@ inline bigInt operator *(const LL& no, const bigInt& op)  {
     return op * no;
 }
 
+template <typename T>
+class myPair  {
+    T first;
+    T second;
+};
+
+myPair <int> bruh;
+
 
 
 std::pair <bigInt, bigInt> euclid(const bigInt& a, const bigInt& b)  {
