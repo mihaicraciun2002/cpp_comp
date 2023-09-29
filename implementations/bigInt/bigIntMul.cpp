@@ -5,11 +5,11 @@
 // Karatsuba for multiplication
 void addVec(std::vector <long long> &ans, const std::vector <long long> &x, const long long& factor, const int& zerosX,
     const int& startPosX, const int& endPosX)  {
-    int desiredSize = x.size() + zerosX;
+    int desiredSize = endPosX - startPosX + 1 + zerosX;
     while(ans.size() < desiredSize)
         ans.push_back(0);
     int startPosition = zerosX;
-    int endPosition = zerosX + endPosX - startPosX + 1;
+    int endPosition = zerosX + endPosX - startPosX;
     int index = startPosition;
     long long remainder = 0LL, toPush = 0LL;
     long long remainderX = 0LL, toPushX = 0LL;
@@ -27,6 +27,7 @@ void addVec(std::vector <long long> &ans, const std::vector <long long> &x, cons
         toPush %= myfunc::bigInt::base;
         ans[index] = toPush;
     }
+
     while(remainder)  {
         if(ans.size() == index)  {
             ans.push_back(remainder % myfunc::bigInt::base);
@@ -51,7 +52,19 @@ void karatsuba (std::vector <long long> &ans, const std::vector <long long>& x, 
         return;
     }
     if(xR - xL + 1 == 1)  {
+        std::cerr << "Number: ";
+        for(int i = (int)ans.size() - 1;i >= 0;i--)  {
+            std::cerr << ans[i] << " ";
+        }
+        std::cerr << "\n";
         addVec(ans, y, x[xL], xL + yL, yL, yR);
+        std::cerr << x[xL] << " " << y[yL] << "\n";
+        std::cerr << xL << " " << xR << " " << yL << " " << yR << "\n";
+        std::cerr << "Number after: ";
+        for(int i = (int)ans.size() - 1;i >= 0;i--)  {
+            std::cerr << ans[i] << " ";
+        }
+        std::cerr << "\n\n";
         return;
     }
     const int m = std::max(xR - xL + 1, yR - yL + 1);
