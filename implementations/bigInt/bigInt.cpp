@@ -6,7 +6,7 @@ class myfunc::div  {
 };
 
 // digit size and sign
-const int& myfunc::bigInt::size () const {
+const int myfunc::bigInt::size () const {
     return this -> digits.size();
 }
 
@@ -22,7 +22,7 @@ void myfunc::bigInt::setSign(const long long& msign)  {
 }
 
 // Equal sign
-void myfunc::bigInt::operator = (const bigInt& oth)  {
+void myfunc::bigInt::operator = (const myfunc::bigInt& oth)  {
     this -> digits = oth.digits;
     this -> sign = oth.sign;
 }
@@ -42,10 +42,7 @@ void myfunc::bigInt::operator = (const long long& nr)  {
 
 
 // Constructors
-myfunc::bigInt::bigInt() {
-    sign = 1;
-    std::vector <long long> digits = std::vector <long long>();
-}
+myfunc::bigInt::bigInt() {}
 
 myfunc::bigInt::bigInt(const long long& nr)  {
     this -> digits.clear();
@@ -62,7 +59,7 @@ myfunc::bigInt::bigInt(const long long& nr)  {
 
 myfunc::bigInt::bigInt(const bigInt& oth)  {
     this -> digits = oth.digits;
-    this -> sign = sign;
+    this -> sign = oth.sign;
 }
 
 // Digit access operator
@@ -76,6 +73,26 @@ const long long& myfunc::bigInt::operator [] (const int& pos) const {
 
 void myfunc::bigInt::push_back (const long long& digit)  {
     this -> digits.push_back(digit);
+}
+
+void myfunc::bigInt::pop_back()  {
+    this -> digits.pop_back();
+}
+
+long long& myfunc::bigInt::back()  {
+    return this -> digits.back();
+}
+
+const long long& myfunc::bigInt::back() const {
+    return this -> digits.back();
+}
+
+long long& myfunc::bigInt::front()  {
+    return this -> digits.front();
+}
+
+const long long& myfunc::bigInt::front() const {
+    return this -> digits.front();
 }
 
 // Streams
@@ -110,6 +127,13 @@ std::string myfunc::bigInt::show() const {
 std::ostream& myfunc::operator << (std::ostream &output, const myfunc::bigInt& obj)  {
     output << obj.show();
     return output;
+}
+
+std::istream& myfunc::operator >> (std::istream &input, myfunc::bigInt& obj)  {
+    long long ans;
+    input >> ans;
+    obj = bigInt(ans);
+    return input;
 }
 
 // Comparators
@@ -166,8 +190,12 @@ bool myfunc::bigInt::operator < (const bigInt &oth) const {
 }
 
 bool myfunc::bigInt::operator == (const bigInt &oth) const  {
-    return (this -> sign == sign && oth.size() == this -> size() &&
+    return (this -> sign == oth.sign && oth.size() == this -> size() &&
         oth.digits == this -> digits);
+}
+
+bool myfunc::bigInt::operator != (const bigInt &oth) const  {
+    return !((*this) == oth);
 }
 
 bool myfunc::bigInt::operator >= (const bigInt &oth) const  {
@@ -178,16 +206,9 @@ bool myfunc::bigInt::operator <= (const bigInt &oth) const  {
     return !((*this) > oth);
 }
 
+// Addition and subtraction helpers
 
-// Addition operator + opposite sign operator
-
-myfunc::bigInt myfunc::operator - (const bigInt &oth)  {
-    bigInt ans = oth;
-    ans.setSign(-ans._sign());
-    return ans;
-}
-
-void myfunc::bigInt::operator += (const bigInt &oth) {
+void myfunc::bigInt::additionHelper(const myfunc::bigInt& oth)  {
     long long remainder = 0LL, toPush = 0LL;
     int index = 0;
     while(index < oth.size() && index < this -> size())  {
@@ -217,18 +238,174 @@ void myfunc::bigInt::operator += (const bigInt &oth) {
     }
 }
 
-void myfunc::bigInt::operator += (const long long &nr)  {
-    (*this) += bigInt(nr);
+void myfunc::bigInt::subtractionHelper(const myfunc::bigInt& oth)  {
+    long long remainder = 0LL, toPush = 0LL;
+    int index = 0;
+    while(index < oth.size() && index < this -> size())  {
+        toPush = (-oth[index] + (*this)[index] - remainder);
+        if(toPush < 0)
+            remainder = 1, toPush += base;
+        else
+            remainder = 0;
+        (*this)[index] = toPush;
+        index++;
+    }
+    while(index < (*this).size())  {
+        toPush = ((*this)[index] - remainder);
+        if(toPush < 0)
+            remainder = 1, toPush += base;
+        else
+            remainder = 0;
+        (*this)[index] = toPush;
+        index++;
+    }
+    while((*this).size() && (*this).back() == 0)
+        (*this).pop_back();
 }
 
-myfunc::bigInt myfunc::bigInt::operator + (const bigInt &oth)  {
+void myfunc::bigInt::inverseSubtractionHelper(const myfunc::bigInt& oth)  {
+    long long remainder = 0LL, toPush = 0LL;
+    int index = 0;
+    while(index < oth.size() && index < this -> size())  {
+        toPush = (oth[index] - (*this)[index] - remainder);
+        if(toPush < 0)
+            remainder = 1, toPush += base;
+        else
+            remainder = 0;
+        (*this)[index] = toPush;
+        index++;
+    }
+    while(index < oth.size())  {
+        toPush = (oth[index] - remainder);
+        if(toPush < 0)
+            remainder = 1, toPush += base;
+        else
+            remainder = 0;
+        (*this).push_back(toPush);
+        index++;
+    }
+    while((*this).size() && (*this).back() == 0)
+        (*this).pop_back();
+}
+
+// Abs comparators
+
+bool myfunc::bigInt::absLess(const myfunc::bigInt& oth)  {
+    if(this -> size() < oth.size())  {
+        return true;
+    }
+    if(this -> size() > oth.size())  {
+        return false;
+    }
+    int index = this -> size() - 1;
+    while(index >= 0)  {
+        if((*this)[index] > oth[index])  {
+            return false;
+        }else if((*this)[index] < oth[index])  {
+            return true;
+        }
+        index--;
+    }
+    return false;
+}
+
+bool myfunc::bigInt::absEqual(const myfunc::bigInt& oth)  {
+    return (this -> digits == oth.digits);
+}
+
+bool myfunc::bigInt::absGreater(const myfunc::bigInt& oth)  {
+    if(this -> size() < oth.size())  {
+        return false;
+    }
+    if(this -> size() > oth.size())  {
+        return true;
+    }
+    int index = this -> size() - 1;
+    while(index >= 0)  {
+        if((*this)[index] > oth[index])  {
+            return true;
+        }else if((*this)[index] < oth[index])  {
+            return false;
+        }
+        index--;
+    }
+    return false;
+}
+
+// Addition operator + opposite sign operator
+
+myfunc::bigInt myfunc::operator - (const myfunc::bigInt& oth)  {
+    myfunc::bigInt ans = oth;
+    ans.setSign(-ans._sign());
+    return ans;
+}
+
+void myfunc::bigInt::operator += (const myfunc::bigInt& oth) {
+    if(oth.sign == this -> sign)  {
+        this -> additionHelper(oth);
+    }else{
+        if(this -> absEqual(oth))  {
+            (*this) = 0;
+        }else if(this -> absGreater(oth))  {
+            this -> subtractionHelper(oth);
+        }else{
+            this -> inverseSubtractionHelper(oth);
+            this -> sign *= -1;
+        }
+    }
+}
+
+void myfunc::bigInt::operator += (const long long& nr)  {
+    (*this) += myfunc::bigInt(nr);
+}
+
+myfunc::bigInt myfunc::bigInt::operator + (const myfunc::bigInt& oth)  {
     myfunc::bigInt ans = (*this);
     ans += oth;
     return ans;
 }
 
-myfunc::bigInt myfunc::bigInt::operator + (const long long &nr)  {
+myfunc::bigInt myfunc::bigInt::operator + (const long long& nr)  {
     myfunc::bigInt ans = (*this);
     ans += bigInt(nr);
     return ans;
+}
+
+myfunc::bigInt myfunc::operator + (const long long& nr, const bigInt& oth)  {
+    return bigInt(nr) + oth;
+}
+
+// Subtraction operator
+
+void myfunc::bigInt::operator -= (const myfunc::bigInt& oth)  {
+    if(oth.sign != this -> sign)  {
+        this -> additionHelper(oth);
+    }else{
+        if(this -> absEqual(oth))  {
+            *this = 0;
+        }else if(this -> absGreater(oth))  {
+            this -> subtractionHelper(oth);
+        }else{
+            this -> inverseSubtractionHelper(oth);
+            this -> sign *= -1;
+        }
+    }
+}
+
+void myfunc::bigInt::operator -= (const long long& nr)  {
+    (*this) -= myfunc::bigInt(nr);
+}
+myfunc::bigInt myfunc::bigInt::operator - (const myfunc::bigInt& oth)  {
+    myfunc::bigInt ans = (*this);
+    ans -= oth;
+    return ans;
+}
+myfunc::bigInt myfunc::bigInt::operator - (const long long& nr)  {
+    myfunc::bigInt ans = (*this);
+    ans -= nr;
+    return ans;
+}
+
+myfunc::bigInt myfunc::operator - (const long long& nr, const bigInt& oth)  {
+    return bigInt(nr) - oth;
 }

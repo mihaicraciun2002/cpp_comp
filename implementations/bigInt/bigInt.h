@@ -2,6 +2,7 @@
 #include <utility>
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 
 namespace myfunc  {
@@ -10,21 +11,32 @@ namespace myfunc  {
     class div;
 
     class bigInt  {
-        public:
-        const long long base = 1e9;
-        const int baseDigitCount = 9;
+        private:
         std::vector <long long> digits;
         long long sign = 1;
 
+        // Methods that only do additions and subtractions for
+        // non-negative integers (subtraction requires the first number
+        // to be greater as well)
+        void additionHelper(const bigInt& oth);
+        void subtractionHelper(const bigInt& oth);
+        // Used to treat the case when this is smaller than oth (in absolute value)
+        void inverseSubtractionHelper(const bigInt& oth);
+        // Compares absolute values of integers
+        bool absLess(const bigInt& oth);
+        bool absEqual(const bigInt& oth);
+        bool absGreater(const bigInt& oth);
 
         public:
+        static const long long base = 1e9;
+        static const int baseDigitCount = 9;
         // constructors
         bigInt();
         bigInt(const long long& nr);
         bigInt(const bigInt &oth);
 
         // digit size and sign
-        const int& size() const;
+        const int size() const;
         const long long& _sign() const;
         long long& _sign();
         void setSign(const long long& msign);
@@ -37,6 +49,11 @@ namespace myfunc  {
         long long& operator [] (const int& pos);
         const long long& operator [] (const int& pos) const;
         void push_back(const long long& digit);
+        void pop_back();
+        long long& back();
+        const long long& back() const;
+        long long& front();
+        const long long& front() const;
 
         // Streams
         std::string show() const;
@@ -47,6 +64,7 @@ namespace myfunc  {
         bool operator >= (const bigInt& oth) const;
         bool operator <= (const bigInt& oth) const;
         bool operator == (const bigInt& oth) const;
+        bool operator != (const bigInt& oth) const;
 
         // Addition operation
         void operator += (const bigInt& oth);
@@ -65,6 +83,7 @@ namespace myfunc  {
         void operator *= (const long long &nr);
         bigInt operator * (const bigInt& oth);
         bigInt operator * (const long long& nr);
+        bigInt pow (const int& exp);
 
         // Division operation
         void operator /= (const bigInt &oth);
@@ -82,8 +101,12 @@ namespace myfunc  {
         div division (const bigInt& oth);
     };
 
+    bigInt karatsubaHelper(const bigInt& x, const bigInt& y);
+
     bigInt operator - (const bigInt& oth);
     std::ostream &operator << (std::ostream &output, const bigInt& obj);
-
-
+    std::istream &operator >> (std::istream &input, bigInt& obj);
+    bigInt operator + (const long long& no, const bigInt& oth);
+    bigInt operator - (const long long& no, const bigInt& oth);
+    bigInt operator * (const long long& no, const bigInt& oth);
 }

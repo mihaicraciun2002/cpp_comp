@@ -1,0 +1,1 @@
+We binary search the b and construct the array from bn to b1, seeing if we can do it
