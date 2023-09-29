@@ -115,8 +115,8 @@ std::string myfunc::bigInt::show() const {
         if(!isFirst)  {
             while(indexCount < baseDigitCount)
                 helper.push_back('0'), indexCount++;
-            isFirst = false;
         }
+        isFirst = false;
         if(helper.size())
             for(int t = (int)helper.size() - 1;t >= 0;t--)
                 ans.push_back(helper[t]);

@@ -3,37 +3,77 @@
 // Multiplication and division class for bigInt
 
 // Karatsuba for multiplication
-void addVec(std::vector <long long> &ans, const std::vector <long long> &x, const int& zerosX)  {
+void addVec(std::vector <long long> &ans, const std::vector <long long> &x, const long long& factor, const int& zerosX,
+    const int& startPosX, const int& endPosX)  {
+    int desiredSize = x.size() + zerosX;
+    while(ans.size() < desiredSize)
+        ans.push_back(0);
+    int startPosition = zerosX;
+    int endPosition = zerosX + endPosX - startPosX + 1;
+    int index = startPosition;
+    long long remainder = 0LL, toPush = 0LL;
+    long long remainderX = 0LL, toPushX = 0LL;
+    for(index = startPosition;index <= endPosition || remainderX;index++)  {
+        if(!(index >= startPosition && index <= endPosition))  {
+            toPushX = remainderX % myfunc::bigInt::base;
+            remainderX /= myfunc::bigInt::base;
+        }else{
+            toPushX = (x[index - zerosX + startPosX] * factor) + remainderX;
+            remainderX = toPushX / myfunc::bigInt::base;
+            toPushX %= myfunc::bigInt::base;
+        }
+        toPush = ans[index] + toPushX + remainder;
+        remainder = toPush / myfunc::bigInt::base;
+        toPush %= myfunc::bigInt::base;
+        ans[index] = toPush;
+    }
+    while(remainder)  {
+        if(ans.size() == index)  {
+            ans.push_back(remainder % myfunc::bigInt::base);
+            remainder /= myfunc::bigInt::base;
+        }else{
+            toPush = ans[index] + remainder;
+            remainder = toPush / myfunc::bigInt::base;
+            toPush %= myfunc::bigInt::base;
+            ans[index] = toPush;
+        }
+        index++;
+    }
 }
 
-std::vector <long long> karatsuba (const std::vector <long long>& x, const std::vector <long long>& y,
+void karatsuba (std::vector <long long> &ans, const std::vector <long long>& x, const std::vector <long long>& y,
     const int& xL, const int& xR, const int& yL, const int& yR)  {
-    std::vector <long long> ans;
-    if(xR > xL)  {
-        return std::vector <long long> ();
+
+    if(xR < xL)  {
+        return;
     }
-    if(yR > yL)  {
-        return std::vector <long long> ();
+    if(yR < yL)  {
+        return;
     }
     if(xR - xL + 1 == 1)  {
-        long long remainder = 0LL;
-        long long toPush = 0LL;
-        int index = yL;
-        return ans;
+        addVec(ans, y, x[xL], xL + yL, yL, yR);
+        return;
     }
     const int m = std::max(xR - xL + 1, yR - yL + 1);
     const int m2 = (m >> 1);
-    const int xMiddle = std::min(xL + m2, xR);
-    const int yMiddle = std::min(yL + m2, yR);
-    std::vector <long long> z0, z1_1, z1_2, z2;
-    z0 = karatsuba(x, y, xL, xMiddle, yL, yMiddle);
-    z1_1 = karatsuba(x, y, xL, xMiddle, yMiddle + 1, yR);
-    z1_2 = karatsuba(x, y, xMiddle + 1, xR, yL, yMiddle);
-    z2 = karatsuba(x, y, xMiddle + 1, xR, yMiddle + 1, yR);
+    const int xMiddle = std::min(xL + m2 - 1, xR);
+    const int yMiddle = std::min(yL + m2 - 1, yR);
+    karatsuba(ans, x, y, xL, xMiddle, yL, yMiddle);
+    karatsuba(ans, x, y, xL, xMiddle, yMiddle + 1, yR);
+    karatsuba(ans, x, y, xMiddle + 1, xR, yL, yMiddle);
+    karatsuba(ans, x, y, xMiddle + 1, xR, yMiddle + 1, yR);
 }
 
 myfunc::bigInt myfunc::karatsubaHelper (const myfunc::bigInt& x, const myfunc::bigInt& y)  {
-
+    if(x.size() == 0 || y.size() == 0)  {
+        return myfunc::bigInt(0);
+    }
+    std::vector <long long> ans;
+    karatsuba(ans, x.digits, y.digits, 0, x.size() - 1, 0, y.size() - 1);
+    myfunc::bigInt ansBigInt;
+    ansBigInt.digits = ans;
+    ansBigInt.sign = x.sign * y.sign;
+    return ansBigInt;
 }
 
 myfunc::bigInt myfunc::bigInt::operator * (const myfunc::bigInt& oth)  {

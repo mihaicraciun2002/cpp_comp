@@ -83,6 +83,7 @@ namespace myfunc  {
         void operator *= (const long long &nr);
         bigInt operator * (const bigInt& oth);
         bigInt operator * (const long long& nr);
+        friend bigInt karatsubaHelper(const bigInt& x, const bigInt& y);
         bigInt pow (const int& exp);
 
         // Division operation
