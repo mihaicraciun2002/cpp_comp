@@ -58,17 +58,31 @@ myfunc::bigInt myfunc::fftHelper(const myfunc::bigInt& x, const myfunc::bigInt& 
     std::complex <double> wInv = std::cos(-2.0 * PI / m) + std::complex <double> {0, 1} * std::sin(-2.0 * PI / m);
     auto F_X = fft(aX, m, w);
     auto F_Y = fft(aY, m, w);
+
     std::vector <std::complex <double>> F(m);
     for(int i = 0;i < m;i++)
         F[i] = F_X[i] * F_Y[i];
     auto FInv = fft(F, m, wInv);
     myfunc::bigInt C;
-    C.digits.resize(m);
+    std::vector <long long> P(m);
     for(int i = 0;i < m;i++)  {
-        C[i] = (long long)((1.0 / (double)m * FInv[i]).real());
+        P[i] = (long long)((1.0 / (double)m * FInv[i]).real());
     }
-    while(C.back() == 0)
-        C.pop_back();
+    while(P.size() && P.back() == 0)
+        P.pop_back();
+
+
+    long long remainder = 0LL, toPush = 0LL;
+    for(int i = 0;i < P.size();i++)  {
+        toPush = remainder + P[i];
+        remainder = toPush / myfunc::bigInt::base;
+        toPush %= myfunc::bigInt::base;
+        C.push_back(toPush);
+    }
+    while(remainder)  {
+        C.push_back(remainder % myfunc::bigInt::base);
+        remainder /= myfunc::bigInt::base;
+    }
 
     C.sign = x.sign * y.sign;
     return C;
