@@ -17,6 +17,7 @@ void addVec(std::vector <long long> &ans, const std::vector <long long> &x, cons
         if(!(index >= startPosition && index <= endPosition))  {
             toPushX = remainderX % myfunc::bigInt::base;
             remainderX /= myfunc::bigInt::base;
+            ans.push_back(0);
         }else{
             toPushX = (x[index - zerosX + startPosX] * factor) + remainderX;
             remainderX = toPushX / myfunc::bigInt::base;
@@ -52,19 +53,7 @@ void karatsuba (std::vector <long long> &ans, const std::vector <long long>& x, 
         return;
     }
     if(xR - xL + 1 == 1)  {
-        std::cerr << "Number: ";
-        for(int i = (int)ans.size() - 1;i >= 0;i--)  {
-            std::cerr << ans[i] << " ";
-        }
-        std::cerr << "\n";
         addVec(ans, y, x[xL], xL + yL, yL, yR);
-        std::cerr << x[xL] << " " << y[yL] << "\n";
-        std::cerr << xL << " " << xR << " " << yL << " " << yR << "\n";
-        std::cerr << "Number after: ";
-        for(int i = (int)ans.size() - 1;i >= 0;i--)  {
-            std::cerr << ans[i] << " ";
-        }
-        std::cerr << "\n\n";
         return;
     }
     const int m = std::max(xR - xL + 1, yR - yL + 1);
@@ -85,10 +74,16 @@ myfunc::bigInt myfunc::karatsubaHelper (const myfunc::bigInt& x, const myfunc::b
     karatsuba(ans, x.digits, y.digits, 0, x.size() - 1, 0, y.size() - 1);
     myfunc::bigInt ansBigInt;
     ansBigInt.digits = ans;
+    for(const auto&x : ansBigInt.digits)
+        std::cerr << x << " ";
+    std::cerr << "\n";
     ansBigInt.sign = x.sign * y.sign;
     return ansBigInt;
 }
 
 myfunc::bigInt myfunc::bigInt::operator * (const myfunc::bigInt& oth)  {
-    return karatsubaHelper((*this), oth);
+    if(myfunc::bigInt::MUL_TYPE == KARATSUBA)
+        return karatsubaHelper((*this), oth);
+    if(myfunc::bigInt::MUL_TYPE == FFT)
+        return fftHelper((*this), oth);
 }

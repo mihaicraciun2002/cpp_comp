@@ -3,7 +3,11 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <cmath>
+#include <complex>
 
+#define KARATSUBA 0
+#define FFT 1
 
 namespace myfunc  {
 
@@ -30,6 +34,7 @@ namespace myfunc  {
         public:
         static const long long base = 1e9;
         static const int baseDigitCount = 9;
+        static const int MUL_TYPE = FFT;
         // constructors
         bigInt();
         bigInt(const long long& nr);
@@ -84,6 +89,7 @@ namespace myfunc  {
         bigInt operator * (const bigInt& oth);
         bigInt operator * (const long long& nr);
         friend bigInt karatsubaHelper(const bigInt& x, const bigInt& y);
+        friend bigInt fftHelper(const bigInt& x, const bigInt& y);
         bigInt pow (const int& exp);
 
         // Division operation

@@ -1,0 +1,6 @@
+BigInt class that should be somewhat efficient
+The base is 10^9 instead of 10
+Perhaps a better implementation would use 2^31 or 2^63 to use the overflow feature
+Addition and subtraction work
+Multiplication - two ways of doing it, either Karatsuba or fft, only Karatsuba works as of now
+Division - still not 100% sure how I'll do it, probably use some trick to reuse multiplication
