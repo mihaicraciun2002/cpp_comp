@@ -32,8 +32,8 @@ namespace myfunc  {
         bool absGreater(const bigInt& oth);
 
         public:
-        static const long long base = 1e9;
-        static const int baseDigitCount = 9;
+        static const long long base = 1e4;
+        static const int baseDigitCount = 4;
         static const int MUL_TYPE = FFT;
         // constructors
         bigInt();

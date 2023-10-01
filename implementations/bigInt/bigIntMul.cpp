@@ -87,3 +87,7 @@ myfunc::bigInt myfunc::bigInt::operator * (const myfunc::bigInt& oth)  {
     if(myfunc::bigInt::MUL_TYPE == FFT)
         return fftHelper((*this), oth);
 }
+
+void myfunc::bigInt::operator *= (const myfunc::bigInt& oth)  {
+    (*this) = (*this) * oth;
+}

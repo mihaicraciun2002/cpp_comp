@@ -4,3 +4,9 @@ Perhaps a better implementation would use 2^31 or 2^63 to use the overflow featu
 Addition and subtraction work
 Multiplication - two ways of doing it, either Karatsuba or fft, only Karatsuba works as of now
 Division - still not 100% sure how I'll do it, probably use some trick to reuse multiplication
+
+Update 1 oct 2023:
+Base is now 10^4 since fft would bring the total over the limit of long long
+FFT seems to work, but larger tests are needed
+Performance is also probably reduced quite a lot since the base has been lowered drastically
+On large numbers, performance is around 2x as slow now
