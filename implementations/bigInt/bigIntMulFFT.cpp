@@ -29,7 +29,7 @@ std::vector <std::complex <double>> fft(std::vector <T>& A, int m, std::complex 
     for(int i = 0; i < m / 2;i++)  {
         F[i] = F_even[i] + x * F_odd[i];
         F[i + m / 2] = F_even[i] - x * F_odd[i];
-        x *= w;
+        x *= w1;
     }
     return F;
 }
