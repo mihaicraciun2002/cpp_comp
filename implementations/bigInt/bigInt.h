@@ -4,15 +4,22 @@
 #include <string>
 #include <algorithm>
 #include <cmath>
-#include <complex>
+#include <unordered_map>
+#include "myComplex.h"
 
 #define KARATSUBA 0
 #define FFT 1
+
+inline int multiplicationCount = 0;
 
 namespace myfunc  {
 
     class bigInt;
     class div;
+
+    inline std::unordered_map<int, complex <long double>> wRoots;
+    inline bool hasComputedRoots = false;
+    inline int maxDigits = (1 << 13);
 
     class bigInt  {
         private:
@@ -34,7 +41,7 @@ namespace myfunc  {
         public:
         static const long long base = 1e4;
         static const int baseDigitCount = 4;
-        static const int MUL_TYPE = FFT;
+        static const int MUL_TYPE = KARATSUBA;
         // constructors
         bigInt();
         bigInt(const long long& nr);
@@ -116,4 +123,5 @@ namespace myfunc  {
     bigInt operator + (const long long& no, const bigInt& oth);
     bigInt operator - (const long long& no, const bigInt& oth);
     bigInt operator * (const long long& no, const bigInt& oth);
+
 }

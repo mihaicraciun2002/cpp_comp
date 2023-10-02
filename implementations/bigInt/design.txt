@@ -2,7 +2,10 @@ BigInt class that should be somewhat efficient
 The base is 10^9 instead of 10
 Perhaps a better implementation would use 2^31 or 2^63 to use the overflow feature
 Addition and subtraction work
-Multiplication - two ways of doing it, either Karatsuba or fft, only Karatsuba works as of now
+Multiplication - two ways of doing it, either Karatsuba or fft, both work
+For now, Karatsuba is a lot faster on numbers even around 10000 digits long. Complexity is worse,
+so for very large numbers Fft should do better (although long double's precision will be pressed,
+and a lower base should be chosen because of long long's limitations)
 Division - still not 100% sure how I'll do it, probably use some trick to reuse multiplication
 
 Update 1 oct 2023:

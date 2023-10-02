@@ -2,18 +2,20 @@
 
 // Multiplication and division class for bigInt
 
+
 // Karatsuba for multiplication
 void addVec(std::vector <long long> &ans, const std::vector <long long> &x, const long long& factor, const int& zerosX,
     const int& startPosX, const int& endPosX)  {
     int desiredSize = endPosX - startPosX + 1 + zerosX;
     while(ans.size() < desiredSize)
-        ans.push_back(0);
+        ans.push_back(0), multiplicationCount++;
     int startPosition = zerosX;
     int endPosition = zerosX + endPosX - startPosX;
     int index = startPosition;
     long long remainder = 0LL, toPush = 0LL;
     long long remainderX = 0LL, toPushX = 0LL;
     for(index = startPosition;index <= endPosition || remainderX;index++)  {
+        multiplicationCount++;
         if(!(index >= startPosition && index <= endPosition))  {
             toPushX = remainderX % myfunc::bigInt::base;
             remainderX /= myfunc::bigInt::base;
@@ -45,7 +47,7 @@ void addVec(std::vector <long long> &ans, const std::vector <long long> &x, cons
 
 void karatsuba (std::vector <long long> &ans, const std::vector <long long>& x, const std::vector <long long>& y,
     const int& xL, const int& xR, const int& yL, const int& yR)  {
-
+    multiplicationCount++;
     if(xR < xL)  {
         return;
     }
@@ -74,16 +76,18 @@ myfunc::bigInt myfunc::karatsubaHelper (const myfunc::bigInt& x, const myfunc::b
     karatsuba(ans, x.digits, y.digits, 0, x.size() - 1, 0, y.size() - 1);
     myfunc::bigInt ansBigInt;
     ansBigInt.digits = ans;
-    for(const auto&x : ansBigInt.digits)
-        std::cerr << x << " ";
-    std::cerr << "\n";
+
     ansBigInt.sign = x.sign * y.sign;
     return ansBigInt;
 }
 
 myfunc::bigInt myfunc::bigInt::operator * (const myfunc::bigInt& oth)  {
-    if(myfunc::bigInt::MUL_TYPE == KARATSUBA)
+    if(myfunc::bigInt::MUL_TYPE == KARATSUBA)  {
+        if((*this).size() > oth.size())  {
+            return karatsubaHelper(oth, (*this));
+        }
         return karatsubaHelper((*this), oth);
+    }
     if(myfunc::bigInt::MUL_TYPE == FFT)
         return fftHelper((*this), oth);
 }
