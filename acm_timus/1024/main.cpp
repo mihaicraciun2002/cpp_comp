@@ -6,6 +6,16 @@ std::vector <int> v;
 std::vector <bool> viz;
 std::vector <int> cycles;
 
+inline long long gcd(long long a, long long b)  {
+	if(b == 0)
+		return a;
+	return gcd(b, a % b);
+}
+
+inline long long lcm(long long a, long long b)  {
+	return a * b / gcd(a, b);
+}
+
 int main()  {
 	scanf("%d", &N);
 	v = std::vector <int> (N + 1, 0);
@@ -24,8 +34,10 @@ int main()  {
 			startPoint = v[startPoint];
 		}while(startPoint != i);
 	}
+	long long ans = 1;
 	for(const auto& x : cycles)  {
-		printf("%d ", x);
+		ans = lcm(ans, x);
 	}
+	printf("%lld\n", ans);
 	return 0;
 }

@@ -1,1 +1,1 @@
-Find cycles, print their scm
+Find cycles, print their lcm
