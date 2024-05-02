@@ -1,0 +1,10 @@
+d[i][j] - number of ways s.t. the wheel from i to j is destroyed, and the rest isn't yet destroyed
+
+i-1 i .. k .. j j + 1
+
+To count d[i][j], suppose k is the last element in i..j that is the last to be destroyed.
+Then d[i][j] += d[i][k - 1] * d[k + 1][j] * Choose(k - i, j - i)
+Because k is the last element, we can consider i - 1, k and j + 1 to be immutable, thus we
+can make use of the two previously constructed dp's. Then we have Choose(k - i, j - i) ways
+of alternating between destroying (i, k - 1) and (k + 1, j).
+The answer will be d[1][n].
